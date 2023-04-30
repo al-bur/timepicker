@@ -1,0 +1,21 @@
+html {
+  font-size: 10px;
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 3px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  html {
+    font-size: 7px;
+  }
+}
+
+@media (min-width: 1440px) {
+  html {
+    font-size: 12px;
+  }
+}
