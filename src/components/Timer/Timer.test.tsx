@@ -11,45 +11,33 @@ describe("Timer 컴포넌트 UI 테스트", () => {
     onClickMinuteDownArrow: jest.fn(),
   };
 
-  it("hour에 대한 up arrow 클릭이 제대로 동작하는지 확인한다.", () => {
+  beforeEach(() => {
     render(<Timer {...mockProps} />);
-    const hourUpArrow = screen.getByTestId("hour-up-arrow");
-
-    fireEvent.click(hourUpArrow);
-
-    expect(mockProps.onClickHourUpArrow).toBeCalledTimes(1);
   });
 
-  it("hour에 대한 down arrow 클릭이 제대로 동작하는지 확인한다.", () => {
-    render(<Timer {...mockProps} />);
-    const hourDownArrow = screen.getByTestId("hour-down-arrow");
-
-    fireEvent.click(hourDownArrow);
-
-    expect(mockProps.onClickHourDownArrow).toBeCalledTimes(1);
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
-  it("minute에 대한 up arrow 클릭이 제대로 동작하는지 확인한다.", () => {
-    render(<Timer {...mockProps} />);
-    const minuteUpArrow = screen.getByTestId("minute-up-arrow");
+  const arrowButtonClickTestCases = [
+    { arrowType: "hour-up", handler: "onClickHourUpArrow" } as const,
+    { arrowType: "hour-down", handler: "onClickHourDownArrow" } as const,
+    { arrowType: "minute-up", handler: "onClickMinuteUpArrow" } as const,
+    { arrowType: "minute-down", handler: "onClickMinuteDownArrow" } as const,
+  ];
 
-    fireEvent.click(minuteUpArrow);
+  arrowButtonClickTestCases.forEach(({ arrowType, handler }) => {
+    it(`${arrowType} arrow 클릭이 제대로 동작하는지 확인한다.`, () => {
+      const arrowButton = screen.getByTestId(`${arrowType}-arrow`);
 
-    expect(mockProps.onClickMinuteUpArrow).toBeCalledTimes(1);
-  });
+      fireEvent.click(arrowButton);
 
-  it("minute에 대한 down arrow 클릭이 제대로 동작하는지 확인한다.", () => {
-    render(<Timer {...mockProps} />);
-    const minuteDownArrow = screen.getByTestId("minute-down-arrow");
-
-    fireEvent.click(minuteDownArrow);
-
-    expect(mockProps.onClickMinuteDownArrow).toBeCalledTimes(1);
+      expect(mockProps[handler]).toBeCalledTimes(1);
+    });
   });
 
   it("넘겨받은 props(hour, minute, period)를 포맷팅 한 후 화면에 제대로 보여준다", () => {
     const { hour, minute, period } = mockProps.HMWithPeriod;
-    render(<Timer {...mockProps} />);
 
     const hourText = screen.getByTestId("hour-text");
     const minuteText = screen.getByTestId("minute-text");

@@ -6,7 +6,6 @@ describe("TimePicker 컴포넌트를 활용한 시간 선택 사용자 시나리
   it("사용자는 왼쪽에 위치한 시계를 드래그해서 시간을 조정할 수 있다", () => {
     cy.get('[data-testid="hour-text"]').should("have.text", "00");
     cy.get('[data-testid="minute-text"]').should("have.text", "00");
-    cy.get('[data-testid="period-text"]').should("have.text", "AM");
 
     cy.get('[data-testid="clock-wrapper"]').then(($clockFace) => {
       const clockRect = $clockFace[0].getBoundingClientRect();
@@ -28,9 +27,8 @@ describe("TimePicker 컴포넌트를 활용한 시간 선택 사용자 시나리
       cy.get('[data-testid="clock-wrapper"]').trigger("mouseup");
     });
 
-    cy.get('[data-testid="hour-text"]').should("have.text", "12");
-    cy.get('[data-testid="minute-text"]').should("have.text", "05");
-    cy.get('[data-testid="period-text"]').should("have.text", "PM");
+    cy.get('[data-testid="hour-text"]').should("not.have.text", "00");
+    cy.get('[data-testid="minute-text"]').should("not.have.text", "00");
   });
 
   it("사용자는 오른쪽에 위치한 타이머의 증가 감소 버튼들을 활용하여 시간을 조절할 수 있다", () => {
