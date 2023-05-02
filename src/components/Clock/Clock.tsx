@@ -1,3 +1,4 @@
+import { HTMLAttributes } from "react";
 import clockImg from "../../assets/clock.svg";
 import {
   StyledContainer,
@@ -5,11 +6,21 @@ import {
   StyledClockImg,
 } from "./Clock.styles";
 
-export default function Clock() {
+type Props = {
+  degrees: number;
+} & HTMLAttributes<HTMLDivElement>;
+
+export default function Clock({ degrees, ...props }: Props) {
+  const { onMouseUp, onMouseDown, onMouseMove } = props;
+
   return (
-    <StyledContainer>
-      <StyledClockHand />
-      <StyledClockImg src={clockImg} />
+    <StyledContainer
+      onMouseMove={onMouseMove}
+      onMouseDown={onMouseDown}
+      onMouseUp={onMouseUp}
+    >
+      <StyledClockHand rotationDeg={degrees} />
+      <StyledClockImg draggable={false} src={clockImg} />
     </StyledContainer>
   );
 }

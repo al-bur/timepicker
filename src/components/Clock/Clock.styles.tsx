@@ -5,14 +5,14 @@ const StyledContainer = styled.div`
   position: relative;
 `;
 
-const StyledClockHand = styled.hr`
+const StyledClockHand = styled.hr<{ rotationDeg: number }>`
   position: absolute;
   top: 48%;
   border: 0.2rem solid #74b074;
   width: 35%;
   left: 14%;
   transform-origin: right;
-  transform: rotate(0deg);
+  transform: rotate(${(props) => props.rotationDeg}deg);
   rotate: 90deg;
   margin: 0;
 `;
