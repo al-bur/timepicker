@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HMWithPeriod } from "../types";
+import { HMWithPeriod } from "../types/time";
 
 // NOTE: 추후, 시간 변경 단위를 조절할 수 있도록 추가 가능
 const CHANGING_MINUTE_UNIT = 5;
