@@ -1,13 +1,13 @@
-import { StyledContainer } from "./App.styles";
+import { StyledContainer, StyledTimePickerWrapper } from "./App.styles";
 import TimePicker from "./components/TimePicker/TimePicker";
 
 function App() {
   return (
-    <>
-      <StyledContainer>
+    <StyledContainer>
+      <StyledTimePickerWrapper>
         <TimePicker />
-      </StyledContainer>
-    </>
+      </StyledTimePickerWrapper>
+    </StyledContainer>
   );
 }
 

@@ -5,8 +5,7 @@ const StyledContainer = styled.div`
   padding: 4% 6%;
   display: flex;
   align-items: center;
-  // TODO: 여기서 Main의 width는 어떻게 결정이 되는 지 알아가야함
-  width: 50%;
+  width: 100%;
   gap: 10%;
 `;
 

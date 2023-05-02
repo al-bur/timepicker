@@ -5,6 +5,11 @@ const StyledContainer = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `;
 
-export { StyledContainer };
+const StyledTimePickerWrapper = styled.div`
+  width: 50%;
+`;
+
+export { StyledContainer, StyledTimePickerWrapper };
