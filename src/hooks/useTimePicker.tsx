@@ -67,13 +67,11 @@ export default function useTimePicker() {
     setHM(getHMbyCalculatingDegrees(e));
   };
 
-  // TODO: 변수명 바꿔야함
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     setHM(getHMbyCalculatingDegrees(e));
     setIsMouseDown(true);
   };
 
-  // TODO: 변수명 바꿔야함
   const handleMouseUp = () => {
     setIsMouseDown(false);
   };
