@@ -79,3 +79,44 @@ npm run test:e2e
 추가로, 이번에 다양한 종류의 테스트 코드를 작성해 보는 것을 시도해 보았습니다. hook, UI, e2e 테스트들을 작성했는데, 최대한 서로의 역할을 가져가면서 중복되지 않도록 테스트 코드를 작성하려고 노력했습니다.
 
 hook 테스트는 비즈니스 로직을 테스트하는 용도, UI는 이벤트가 잘 호출이 되는 지와 내용이 잘 렌더링 되는 지를 테스트하는 용도 그리고 e2e는 사용자 시나리오를 잘 보여주고 테스트하는 용도로 작성해 보았습니다.
+
+
+<br>
+
+## 2. 가장 어려웠던 부분 - 시계 이미지의 특정 포인트를 클릭했을 때, 그 포인트에 맞춰 시계침을 움직이는 것
+시계침을 렌더링하는 방식을 transform을 활용해서 각도(degree)를 변화시키는 방식을 사용하고 있었기 때문에 시계 이미지의 한 부분을 클릭했을 때도 똑같이 특정 각도를 추출하여야 했습니다.
+
+이 각도를 추출하기 위해 많은 시간을 고민했던 것 같습니다. 밥을 먹을 때, 씻을 때, 산책할 때, 여러 상황에서 오랫동안 고민을 하다가 문득 이미지에서 마우스 클릭했을 때 발생한 이벤트 객체에 있는 프로퍼티들을 활용해서 각도를 구할 수 있지 않을까? 생각이 들어서 이와 관련해서 조사를 해보았습니다.
+
+찾아보니, 시계의 가운뎃점의 위치와 클릭했을 때의 포인트 위치를 비교해서 Math 함수를 이용하면 최종적으로 각도를 구할 수 있다는 것을 알게 되었습니다.
+
+최종적으로는 아래와 같이 마우스의 위치를 바탕으로 구한 각도를 바탕으로 hour와 minute를 반환하는 함수를 만들었습니다.
+
+```Typescript
+// NOTE: 시계내 클릭한 위치를 기반으로 중앙점으로부터의 각도를 구하고 이를 바탕으로 시간(hour, minute)을 구하는 함수
+// 수학적 식이 포함되서 주석으로 설명을 적었습니다!
+const getHMbyCalculatingDegrees = (e: React.MouseEvent<HTMLDivElement>) => {
+  const targetRect = e.currentTarget.getBoundingClientRect();
+  // 클릭한 요소의 중심 X, Y 좌표를 계산합니다.
+  const centerX = targetRect.left + targetRect.width / 2;
+  const centerY = targetRect.top + targetRect.height / 2;
+
+  // atan2 메서드를 활용해 라디안을 계산합니다
+  const radians = Math.atan2(e.clientY - centerY, e.clientX - centerX); // 마우스 좌표와 요소 중심 좌표의 차이를 이용해 각도를 라디안으로 계산합니다.
+
+  // 라디안 값을 각도로 변환하고, 0~360도를 맞춰주기 위해 추가적으로 degree를 더해줍니다.
+  const degrees = ((radians * 180) / Math.PI + 360 + 90) % 360;
+
+  // 전체 각도를 이용해 시간(hour, minute)을 계산합니다.
+  const hour = Math.floor((degrees / 360) * 24);
+  const minute = Math.floor(((degrees % 15) / 15) * 60);
+
+  // minute 변동 단위에 맞춰서 시계 침을 움직일 수 있도록 하기 위해 해당 unit을 기반으로 반올림 해줍니다.
+  const roundedMinuteByChangingUnit =
+    Math.round(minute / CHANGING_MINUTE_UNIT) * CHANGING_MINUTE_UNIT;
+
+  return roundedMinuteByChangingUnit === 60
+    ? { hour: (hour + 1) % 24, minute: 0 }
+    : { hour, minute: roundedMinuteByChangingUnit };
+};
+```
