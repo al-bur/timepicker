@@ -7,8 +7,8 @@ describe("TimePicker 컴포넌트를 활용한 시간 선택 사용자 시나리
     cy.get('[data-testid="hour-text"]').should("have.text", "00");
     cy.get('[data-testid="minute-text"]').should("have.text", "00");
 
-    cy.get('[data-testid="clock-wrapper"]').then(($clockFace) => {
-      const clockRect = $clockFace[0].getBoundingClientRect();
+    cy.get('[data-testid="clock-wrapper"]').then((clockWrapper) => {
+      const clockRect = clockWrapper[0].getBoundingClientRect();
       const centerX = clockRect.left + clockRect.width / 2;
       const centerY = clockRect.top + clockRect.height / 2;
 
