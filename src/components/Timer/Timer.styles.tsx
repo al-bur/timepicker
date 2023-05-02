@@ -28,6 +28,7 @@ const StyledColumn = styled.div`
 const StyledTimeText = styled.span`
   color: #ffffff;
   font-size: 6rem;
+  font-family: "Courier New";
 `;
 
 const StyledColonText = styled.span`
@@ -47,6 +48,7 @@ const StyledPeriodText = styled.span`
   color: #ffffff;
   font-size: 6rem;
   margin-left: 10%;
+  font-family: "Courier New";
 `;
 
 export {
