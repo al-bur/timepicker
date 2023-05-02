@@ -13,13 +13,13 @@
 1. git clone
 
 ```bash
-git clone https://github.com/al-bur/clock.git
+git clone https://github.com/al-bur/timepicker.git
 ```
 
 2. 폴더 이동
 
 ```bash
-cd clock
+cd timepicker
 ```
 
 3. 설치
