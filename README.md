@@ -44,6 +44,7 @@ npm run test:ui
 npm run test:hook
 
 # e2e test 실행 (cypress)
+# 단, 개발 서버(5147 prot)를 활성화 해놓은 상황에서만 가능합니다.
 npm run test:e2e 
 
 ```
