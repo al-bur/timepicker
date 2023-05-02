@@ -18,6 +18,7 @@ export default function Clock({ degrees, ...props }: Props) {
       onMouseMove={onMouseMove}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
+      data-testid="clock-wrapper"
     >
       <StyledClockHand rotationDeg={degrees} />
       <StyledClockImg draggable={false} src={clockImg} />
