@@ -28,24 +28,42 @@ export default function Timer({
   return (
     <StyledContainer>
       <StyledColumn>
-        <StyledUpArrowImg src={upArrowImg} onClick={onClickHourUpArrow} />
-        <StyledTimeText>
+        <StyledUpArrowImg
+          src={upArrowImg}
+          onClick={onClickHourUpArrow}
+          data-testid="hour-up-arrow"
+        />
+        <StyledTimeText data-testid="hour-text">
           {String(HMWithPeriod.hour).padStart(2, "0")}
         </StyledTimeText>
-        <StyledDownArrowImg src={upArrowImg} onClick={onClickHourDownArrow} />
+        <StyledDownArrowImg
+          src={upArrowImg}
+          onClick={onClickHourDownArrow}
+          data-testid="hour-down-arrow"
+        />
       </StyledColumn>
 
       <StyledColonText>:</StyledColonText>
 
       <StyledColumn>
-        <StyledUpArrowImg src={upArrowImg} onClick={onClickMinuteUpArrow} />
-        <StyledTimeText>
+        <StyledUpArrowImg
+          src={upArrowImg}
+          onClick={onClickMinuteUpArrow}
+          data-testid="minute-up-arrow"
+        />
+        <StyledTimeText data-testid="minute-text">
           {String(HMWithPeriod.minute).padStart(2, "0")}
         </StyledTimeText>
-        <StyledDownArrowImg src={upArrowImg} onClick={onClickMinuteDownArrow} />
+        <StyledDownArrowImg
+          src={upArrowImg}
+          onClick={onClickMinuteDownArrow}
+          data-testid="minute-down-arrow"
+        />
       </StyledColumn>
 
-      <StyledPeriodText>{HMWithPeriod.period}</StyledPeriodText>
+      <StyledPeriodText data-testid="period-text">
+        {HMWithPeriod.period}
+      </StyledPeriodText>
     </StyledContainer>
   );
 }
