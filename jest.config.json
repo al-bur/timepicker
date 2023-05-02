@@ -1,0 +1,7 @@
+{
+  "testEnvironment": "jsdom",
+  "setupFilesAfterEnv": ["./setup.ts"],
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest"
+  }
+}
